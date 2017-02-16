@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		
+		<title>WEB GCS</title>
+			
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="css/style.css" rel="stylesheet">
+	</head>
+
+	<body>
+		
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="#">
+				<img alt="Brand" src="images/logounifei.jpg">
+			  </a>
+			</div>
+		  </div>
+		</nav>
+		
+		<div class="sidebar">
+			
+			<!-- STATUS SCREEN -->
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+					
+					<!-- UAV Select -->
+					<div class="form-group">
+						<select class="form-control" id="uav-select"></select>
+					</div>
+					
+					<!-- Attitude Indicator -->
+					<div class="row">
+						<canvas id="attitude-indicator" width="200" height="200"></canvas>
+						<canvas id="mask" width="200" height="200" style="display: none;"></canvas>
+					</div>
+					
+					<!-- Flight Mode Select -->
+					<form class="form-inline">
+						<div class="form-group">
+							<select class="form-control" id="mode-select">
+								<option data-mode="STABILIZE">STABILIZE</option>
+								<option data-mode="GUIDED">GUIDED</option>
+								<option data-mode="LOITER">LOITER</option>
+								<option data-mode="RTL">RTL</option>
+								<option data-mode="LAND">LAND</option>
+							</select>
+							<button type="button" class="btn btn-primary" id="btn-set-mode">Set</button>
+						</div>
+					</form>
+					
+					<!-- Arm Button -->
+					<div class="form-group">
+						<button type="button" class="btn btn-primary" id="btn-arming">Arm</button>
+					</div>
+					
+					
+					<!-- Take off button -->
+					<form class="form-inline r-form">
+						<div class="form-group">
+							<input type="text" name="takeoff-altitude" class="form-control" id="takeoff-altitude" value="10">
+							<button type="button" class="btn btn-primary btn-disabled" id="btn-takeoff" disabled>Takeoff</button>
+						</div>					
+					</form>
+				
+				
+					<!-- Status information -->
+					<div><span id="st-arming"></span></div>
+				
+					<div><label>Mode: </label><span id="st-mode"></span></div>
+					
+					<div class="row">
+						<div class="col-xs-6"><label>Lat: </label><span id="st-latitude"></span></div>
+						<div class="col-xs-6"><label>Lng: </label><span id="st-longitude"></span></div>
+						<div class="col-xs-6"><label>X: </label><span id="st-x"></span></div>
+						<div class="col-xs-6"><label>Y: </label><span id="st-y"></span></div>		
+						<div class="col-xs-6"><label>Alt: </label><span id="st-altitude"></span></div>				
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-4"><label>Yaw: </label><span id="st-yaw"></span></div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-6"><label>utmX: </label><span id="st-utm-x"></span></div>
+						<div class="col-xs-6"><label>utmY: </label><span id="st-utm-y"></span></div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-6"><label>V1: </label><span id="st-v1"></span></div>
+						<div class="col-xs-6"><label>V2: </label><span id="st-v2"></span></div>
+						<div class="col-xs-6"><label>V3: </label><span id="st-v3"></span></div>
+						<div class="col-xs-6"><label>V4: </label><span id="st-v4"></span></div>
+						<div class="col-xs-6"><label>VRes: </label><span id="st-vres"></span></div>					
+					</div>
+				
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+				
+					<div class="row">
+						<div class="col-xs-6"><label>X: </label><span id="st-migration-x"></span></div>
+						<div class="col-xs-6"><label>Y: </label><span id="st-migration-y"></span></div>
+					</div>
+					
+					<form class="form-inline objective-form">
+						<div class="form-group">
+							<label for="objective-x">X: </label>
+							<input type="text" name="objective-x" class="form-control" id="objective-x">
+						</div>
+						<div class="form-group">
+							<label for="objective-y">Y: </label>
+							<input type="text" name="objective-y" class="form-control" id="objective-y">
+						</div>
+						<button type="button" class="btn btn-primary" id="btn-set-objective">Set</button>
+					</form>
+				
+				</div>
+			</div>
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+				
+					<form class="form-inline r-form">
+						<div class="form-group">
+							<label for="r1">R1: </label> 
+							<input type="text" name="r1" class="form-control" id="r1">
+							<button type="button" class="btn btn-primary" id="btn-set-r1">Set</button>
+						</div>
+					</form>
+					
+					<form class="form-inline r-form">
+						<div class="form-group">
+							<label for="r2">R2: </label> 
+							<input type="text" name="r2" class="form-control" id="r2">
+							<button type="button" class="btn btn-primary" id="btn-set-r2">Set</button>
+						</div>					
+					</form>
+					
+					<form class="form-inline r-form">
+						<div class="form-group">
+							<label for="r3">R3: </label> 
+							<input type="text" name="r3" class="form-control" id="r3">
+							<button type="button" class="btn btn-primary" id="btn-set-r3">Set</button>
+						</div>					
+					</form>
+					
+					<form class="form-inline r-form">
+						<div class="form-group">
+							<label for="r4">R4: </label> 
+							<input type="text" name="r4" class="form-control" id="r4">
+							<button type="button" class="btn btn-primary" id="btn-set-r4">Set</button>
+						</div>					
+					</form>
+				
+				</div>
+			</div>
+			
+		</div> <!-- /sidebar -->
+		
+		<div class="main">
+		
+			<div id="map"></div>
+		
+		</div>
+		
+		<canvas id="vector-viewer-1" width="1000" height="1000"></canvas>
+		<canvas id="vector-viewer-2" width="1000" height="1000"></canvas>
+		<canvas id="vector-viewer-3" width="1000" height="1000"></canvas>
+		
+		
+		<!-- JQuery -->
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		
+		<!-- roslibjs -->
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+		
+		<!-- 3D library -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
+		
+		<!-- Google Maps -->
+		<script async defer
+		  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxrTkNfiYPexzOFyApzD2KDCCil3na5RM&callback=initMap">
+		</script>
+		
+		<!-- Web GCS javascript file -->
+		<script type="text/javascript" src="js/web_gcs.js"></script>
+	</body>
+</html>

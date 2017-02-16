@@ -1,0 +1,45 @@
+/* Sidebar and main content */
+.top {
+    position:absolute;
+    left:0; 
+    right:0;
+    height: 50px;
+}
+.sidebar {
+    position:absolute;
+    right:0; 
+    top:52px; 
+    bottom: 0;
+    width: 300px;
+    padding: 10px;
+}
+.main {
+    position: absolute;
+    right:300px; 
+    top:52px; 
+    left:0; 
+    bottom:0;
+}
+
+.navbar-brand {
+	margin-left: 0 !important;
+	padding: 5px;
+}
+.navbar-brand img {
+	height: 40px;
+}
+
+		  
+#map { 
+	height: 100%;
+}
+
+
+.objective-form .form-control {
+	width: 70px;
+}
+
+.r-form .form-control {
+	width: 150px;
+}
+
